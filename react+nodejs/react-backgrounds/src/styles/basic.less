@@ -1,0 +1,56 @@
+.page_login {
+  height: 100vh;
+  width: 100vw;
+  background: url(../static/6.jpg) no-repeat;
+  position: relative;
+  box-sizing: content-box;
+  background-size: 100% 100%;
+  .container {
+    position: absolute;
+    min-width: 240px;
+    min-height: 100px;
+    padding: 90px 60px 20px 60px;
+    box-sizing: content-box;
+    left: 50%;
+    top: 50%;
+    margin-top: -150px;
+    margin-left: -120px;
+  }
+}
+.showBox {
+  transform: rotateY(0deg);
+  input {
+    color: #61bfff !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+}
+.hiddenBox {
+  transform: rotateY(180deg);
+  input {
+    color: #61bfff !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+}
+.box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 240px;
+  min-height: 300px;
+  padding: 40px 60px 20px 60px;
+  backface-visibility: hidden;
+  background: linear-gradient(
+    230deg,
+    rgba(53, 57, 74, 0) 0%,
+    rgb(0, 0, 0) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='rgba(53, 57, 74, 0)', endColorstr='rgb(0, 0, 0)',GradientType=1 );
+  box-shadow: -15px 15px 15px rgba(0, 0, 0, 0.4);
+  transition: all 1s;
+}

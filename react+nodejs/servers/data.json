@@ -1,0 +1,49 @@
+{
+  "user": [
+    {
+      "id": 1,
+      "username": "admin",
+      "password": "123456",
+      "role": "admin",
+      "title": "66666",
+      "hashPassword": "U2FsdGVkX1/iufh79WVXIYvtEbsCt1zTlshND0Nw/3o=",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiaWF0IjoxNjI1NjQ4MzY0fQ.EaHkT2HnkAszKZnDuR2nL7ttBpLN-NQlKi96SL42G3M"
+    },
+    {
+      "id": 2,
+      "username": "测试用户",
+      "password": "123456",
+      "role": "admin",
+      "title": "1111111111111111",
+      "hashPassword": "U2FsdGVkX1+fgvVktINjz6FXeAoDIH480mEO5NNChLo=",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Iua1i-ivleeUqOaItyIsImlhdCI6MTYyNTY0ODQwMX0.a-0gwqgBOF1v-htv4z6pB_LUNtlWkjJPENH_Kd-VZdk"
+    },
+    {
+      "id": 3,
+      "username": "imagine",
+      "password": "123456",
+      "role": "editor",
+      "title": "普通用户角色",
+      "hashPassword": "U2FsdGVkX18ivIACp3HTmJtxbcKQcpMIwQpl3zdVlaw=",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImltYWdpbmUiLCJpYXQiOjE2MjU2NDgzMTR9.Ns14RpoCON3OmTtDSFE2ZsxfWvCEbm_D8-oJfc93ei0"
+    },
+    {
+      "id": 4,
+      "username": "游客",
+      "password": "123456",
+      "role": "guest",
+      "title": "游客",
+      "hashPassword": "U2FsdGVkX1+Jyu5eZB+I0CB+WEIe63pGE09t4ZCmEDw=",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Iua4uOWuoiIsImlhdCI6MTYyNTY0ODM0OH0.tW_k-vS6g78w5h_EU6Ih84PyeAbVJRAENvvxG7dYXSQ"
+    },
+    {
+      "id": 5,
+      "username": "测试11",
+      "password": "123456",
+      "role": "editor",
+      "title": "123444663435",
+      "hashPassword": "U2FsdGVkX19Qrd1O8EgH07d4D7w5GG/b1Edo8Z/hotQ=",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Iua1i-ivlTExIiwiaWF0IjoxNjI1NjUwOTAwfQ.oV9tp-3gtTsqgC_APR0I4oKd8Yw5xoTewuFlU1XXEYI"
+    }
+  ]
+}
