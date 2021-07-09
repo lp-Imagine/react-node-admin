@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { setInfo, setInfoVisible } from "@/store/actions";
 import { Modal, Button, Upload, message, Avatar, Form, Input } from "antd";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import "./index.less";
+import "./index.scss";
 
 function getBase64(img, callback) {
   const reader = new FileReader();

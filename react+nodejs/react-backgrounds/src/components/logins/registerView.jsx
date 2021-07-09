@@ -2,12 +2,13 @@ import React from "react";
 import { Form, Input, Button, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { connect } from "react-redux";
-import "@/styles/login.less";
+import "@/styles/login.scss";
 import { encrypt } from "@/utils/index";
 import userApi from "@/api/user";
 import { withRouter } from "react-router";
 import { setToken } from "@/utils/session";
 import { setUserToken } from "@/store/actions";
+import { getInfo } from "@/store/actions";
 class RegisterView extends React.Component {
   state = {
     loading: false,
@@ -33,9 +34,12 @@ class RegisterView extends React.Component {
     const hide = message.loading("注册中...", 0);
     //加密密码
     const ciphertext = encrypt(values.password);
+    const { ip, adress } = this.props;
     const params = {
-      username: values.username,
+      username: values.username.trim(),
       password: ciphertext,
+      ip: ip,
+      adress: adress,
     };
     try {
       const res = await userApi.register(params);
@@ -48,6 +52,7 @@ class RegisterView extends React.Component {
         message.success(res.data.message);
         setUserToken(res.data.data.token);
         setToken(res.data.data.token);
+        getInfo({ token: res.data.data.token });
         history.push("/home");
       } else {
         message.error(res.data.message);
@@ -115,4 +120,6 @@ class RegisterView extends React.Component {
   }
 }
 
-export default connect(null, { setUserToken })(withRouter(RegisterView));
+export default connect((state) => state.user, { setUserToken, getInfo })(
+  withRouter(RegisterView)
+);

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Tooltip } from "antd";
 import { toggleSettingPanel } from "@/store/actions";
 import { SettingOutlined } from "@ant-design/icons";
-import "./index.less";
+import "./index.scss";
 const Settings = (props) => {
   const { toggleSettingPanel } = props;
   console.log(toggleSettingPanel,'togg')

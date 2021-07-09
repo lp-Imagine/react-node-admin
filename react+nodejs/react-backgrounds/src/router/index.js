@@ -4,7 +4,7 @@
  * @Author: peng
  * @Date: 2021-07-02 10:55:29
  * @LastEditors: peng
- * @LastEditTime: 2021-07-05 10:25:47
+ * @LastEditTime: 2021-07-09 17:49:49
  */
 import React from "react";
 import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
@@ -14,28 +14,26 @@ import Layout from "@/views/layout";
 import Login from "@/views/login";
 class Router extends React.Component {
   render() {
+    console.log(this.props, "routerprops");
     const { token, role, getInfo } = this.props;
-    console.log(this.props, "propsrouter",token);
+    console.log("propsrouter", token);
     return (
       <HashRouter>
         <Switch>
-          {/* <Route path="/login" component={Login} /> */}
+          <Route path="/login" component={Login} />
           <Route
-            // path="/"
+            path="/"
             render={() => {
               if (!token) {
-                console.log(token,'登入页')
-                // return <Redirect to="/login" />;
-                return <Login />
+                console.log(token, "登入页");
+                return <Login />;
               } else {
-                console.log('首页')
-                console.log('首页',<Layout />)
-                // if (role) {
-                return <Layout />;
-                // }
-                //   else {
-                //     getUserInfo(token).then(() => <Layout />);
-                //   }
+                console.log("首页");
+                if (role) {
+                  return <Layout />;
+                } else {
+                  getInfo({ token }).then(() => <Layout />);
+                }
               }
             }}
           />
@@ -45,4 +43,4 @@ class Router extends React.Component {
   }
 }
 
-export default connect((state) => state.user)(Router);
+export default connect((state) => state.user, { getInfo })(Router);

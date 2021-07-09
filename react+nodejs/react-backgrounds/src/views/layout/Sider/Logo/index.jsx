@@ -1,6 +1,6 @@
 import React from "react";
 import logo from "@/assets/images/logo.svg";
-import "./index.less";
+import "./index.scss";
 const Logo = () => {
   return (
     <div className="sidebar-logo-container">

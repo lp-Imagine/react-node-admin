@@ -5,13 +5,16 @@ const EditUser = (props) => {
   const [form] = Form.useForm();
   const { visible, onCancel, onCreate, confirmLoading, currentRowData } = props;
   const { id, username, role, title, password } = currentRowData;
-  form.setFieldsValue({
-    id,
-    username,
-    role,
-    title,
-    password,
-  });
+  if (visible) {
+    form.setFieldsValue({
+      id: id,
+      username: username,
+      role: role,
+      title: title,
+      password: password,
+    });
+  }
+
   const formItemLayout = {
     labelCol: {
       sm: { span: 4 },

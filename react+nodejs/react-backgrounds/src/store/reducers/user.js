@@ -4,7 +4,7 @@
  * @Author: peng
  * @Date: 2021-07-02 10:29:51
  * @LastEditors: peng
- * @LastEditTime: 2021-07-06 14:09:07
+ * @LastEditTime: 2021-07-08 14:35:20
  */
 import * as types from "../actions-types";
 import { getToken } from "@/utils/session";
@@ -24,7 +24,6 @@ export default function user(state = initUserInfo, action) {
         token: action.token,
       };
     case types.USER_SET_INFO:
-      console.log(action, "action");
       return {
         ...state,
         id: action.id,

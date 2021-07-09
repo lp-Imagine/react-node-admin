@@ -1,17 +1,20 @@
 import React from "react";
-import { Form, Input, Button, message, notification } from "antd";
+import { withRouter } from "react-router";
+import { Form, Input, Button, message } from "antd";
 import { connect } from "react-redux";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { randomNum, encrypt } from "@/utils/index";
-import "@/styles/login.less";
-import { reqLogin, getInfo } from "@/store/actions";
-
+import "@/styles/login.scss";
+import { reqLogin } from "@/store/actions";
+import { getInfo } from "@/store/actions";
 class LoginView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       code: "", //**验证码 */
       loading: false, //** 当前焦点聚焦在哪一项上*/
+      ip: "",
+      adress: "",
     };
   }
 
@@ -115,7 +118,7 @@ class LoginView extends React.Component {
 
   //**表单验证成功后的登录函数*/
   onLogin = (values) => {
-    const { reqLogin } = this.props;
+    const { reqLogin, history } = this.props;
 
     if (this.state.loading) {
       return;
@@ -125,16 +128,20 @@ class LoginView extends React.Component {
     });
     //**加密密码*/
     const ciphertext = encrypt(values.password);
+    const { ip, adress } = this.props;
     const params = {
-      username: values.username,
+      username: values.username.trim(),
       password: ciphertext,
+      ip: ip,
+      adress: adress,
     };
 
     reqLogin(params)
       .then((res) => {
+        console.log(res, "res");
         message.success(res.message);
-        const { token } = res.data;
-        // this.handleGetUserInfo({ token: token });
+        getInfo({ token: res.data.token });
+        history.push("/home");
       })
       .catch((error) => {
         this._createCode();
@@ -145,24 +152,12 @@ class LoginView extends React.Component {
     });
   };
 
-  //**获取用户信息 */
-  handleGetUserInfo = (data) => {
-    const { getInfo } = this.props;
-    getInfo(data)
-      .then((res) => {
-        console.log(res, "resinfo");
-      })
-      .catch((error) => {
-        message.error(error);
-      });
-  };
-
   onFinish = (values) => {
     this.onLogin(values);
   };
   render() {
     const { code, loading } = this.state;
-    const canvasBg = this.props.showStatus === 'register' ? "canvas_bg" : ''
+    const canvasBg = this.props.showStatus === "register" ? "canvas_bg" : "";
     return (
       <div className={this.props.className}>
         <div className="login_log">
@@ -257,6 +252,6 @@ class LoginView extends React.Component {
   }
 }
 
-// export default withRouter(LoginView);
-
-export default connect((state) => state.user, { reqLogin, getInfo })(LoginView);
+export default connect((state) => state.user, { reqLogin, getInfo })(
+  withRouter(LoginView)
+);

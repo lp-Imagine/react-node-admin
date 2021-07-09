@@ -7,7 +7,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { addTag } from "@/store/actions";
 import { getMenuItemInMenuListByProperty } from "@/utils";
 import menuList from "@/router/config";
-import "./index.less";
+import "./index.scss";
 const SubMenu = Menu.SubMenu;
 // 重新记录数组顺序
 const reorder = (list, startIndex, endIndex) => {
@@ -27,13 +27,14 @@ class Meun extends Component {
   filterMenuItem = (item) => {
     const { roles } = item;
     const { role } = this.props;
-    // if (role === "admin" || !roles || roles.includes(role)) {
-    //   return true;
-    // } else if (item.children) {
-    //   // 如果当前用户有此item的某个子item的权限
-    //   return !!item.children.find((child) => roles.includes(child.role));
-    // }
-    // return false;
+    console.log(item, "itemmenu", role);
+    if (role === "admin" || !roles || roles.includes(role)) {
+      return true;
+    } else if (item.children) {
+      // 如果当前用户有此item的某个子item的权限
+      return !!item.children.find((child) => roles.includes(child.role));
+    }
+    return false;
   };
   // 菜单渲染
   getMenuNodes = (menuList) => {
@@ -41,7 +42,7 @@ class Meun extends Component {
     // 得到当前请求的路由路径
     const path = this.props.location.pathname;
     return menuList.reduce((pre, item) => {
-      // if (this.filterMenuItem(item)) {
+      if (this.filterMenuItem(item)) {
         if (!item.children) {
           pre.push(
             <Menu.Item key={item.path}>
@@ -78,7 +79,7 @@ class Meun extends Component {
             </SubMenu>
           );
         }
-      // }
+      }
 
       return pre;
     }, []);

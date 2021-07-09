@@ -7,7 +7,7 @@ import FullScreen from "@/components/FullScreen";
 import Settings from "@/components/Settings";
 import Hamburger from "@/components/Hamburger";
 import BreadCrumb from "@/components/BreadCrumb";
-import "./index.less";
+import "./index.scss";
 const { Header } = Layout;
 
 const LayoutHeader = (props) => {
@@ -17,11 +17,11 @@ const LayoutHeader = (props) => {
     sidebarCollapsed,
     setInfoVisible,
     logout,
-    getInfo,
+    // getInfo,
     showSettings,
     fixedHeader,
   } = props;
-  token && getInfo({ token });
+  // token && getInfo({ token });
   const handleLogout = (token) => {
     Modal.confirm({
       title: "注销",
@@ -125,6 +125,6 @@ const mapStateToProps = (state) => {
 };
 export default connect(mapStateToProps, {
   logout,
-  getInfo,
+  // getInfo,
   setInfoVisible,
 })(LayoutHeader);

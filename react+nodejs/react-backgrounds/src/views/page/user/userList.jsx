@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Button, Divider, Card, message } from "antd";
+import { Table, Button, Divider, Card, message, Pagination } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import TypingCard from "@/components/TypingCard";
 import usersApi from "@/api/user";
@@ -7,28 +7,42 @@ import EditForm from "../user/userInfoForm/editForm";
 class UserList extends React.Component {
   state = {
     users: [],
+    list: [],
+    loading: false,
     editUserModalVisible: false,
     editUserModalLoading: false,
     currentRowData: {},
     addUserModalVisible: false,
     addUserModalLoading: false,
+    total: 0,
+    listQuery: {
+      pageNumber: 1,
+      pageSize: 5,
+    },
   };
   componentDidMount() {
     this.getUserList();
   }
   getUserList = () => {
+    this.setState({
+      loading: true,
+    });
     usersApi.getUsers({}).then((res) => {
       if (res.data.code === 200) {
+        const data = res.data.data;
+        if (!data) return;
         this.setState({
-          users: res.data.data,
+          users: data,
+          total: data.length,
+          loading: false,
         });
+        this.currentPage();
       } else {
         message.error(res.data.message);
       }
     });
   };
   handleEditUser = (row) => {
-    console.log(row, "row");
     this.setState({
       currentRowData: Object.assign({}, row),
       editUserModalVisible: true,
@@ -61,7 +75,6 @@ class UserList extends React.Component {
     });
   };
   onCreate = (values) => {
-    console.log(values, "values====");
     usersApi.editUserInfo(values).then((res) => {
       if (res.data.code === 200) {
         //**修改成功，刷新列表数据 */
@@ -73,6 +86,42 @@ class UserList extends React.Component {
       } else {
         message.error(res.data.message);
       }
+    });
+  };
+  changePage = (pageNumber, pageSize) => {
+    this.setState(
+      (state) => ({
+        listQuery: {
+          ...state.listQuery,
+          pageNumber,
+        },
+      }),
+      () => {
+        this.getUserList();
+      }
+    );
+  };
+  changePageSize = (current, pageSize) => {
+    this.setState(
+      (state) => ({
+        listQuery: {
+          ...state.listQuery,
+          pageNumber: 1,
+          pageSize,
+        },
+      }),
+      () => {
+        this.getUserList();
+      }
+    );
+  };
+  //**前端控制分页 */
+  currentPage = () => {
+    const { pageNumber, pageSize } = this.state.listQuery;
+    const userList = this.state.users;
+    if (!userList.length) return;
+    this.setState({
+      list: userList.slice((pageNumber - 1) * pageSize, pageNumber * pageSize),
     });
   };
 
@@ -99,6 +148,22 @@ class UserList extends React.Component {
         dataIndex: "title",
       },
       {
+        title: "IP",
+        dataIndex: "ip",
+      },
+      {
+        title: "Adress",
+        dataIndex: "adress",
+      },
+      {
+        title: "注册时间",
+        dataIndex: "createDate",
+      },
+      {
+        title: "登录时间",
+        dataIndex: "loginDate",
+      },
+      {
         title: "操作",
         dataIndex: "action",
         render: (text, row) => (
@@ -123,8 +188,15 @@ class UserList extends React.Component {
         ),
       },
     ];
-    const { users, editUserModalVisible, confirmLoading, currentRowData } =
-      this.state;
+    const {
+      list,
+      loading,
+      editUserModalVisible,
+      confirmLoading,
+      currentRowData,
+      total,
+      listQuery,
+    } = this.state;
     const cardContent = `系统中的用户管理。`;
     return (
       <div className="app-container">
@@ -133,10 +205,25 @@ class UserList extends React.Component {
         <Card>
           <Table
             bordered
+            pagination={false}
+            loading={loading}
             columns={columns}
             rowKey={(record) => record.id}
-            dataSource={users}
+            dataSource={list}
           ></Table>
+          <br />
+          <Pagination
+            total={total}
+            pageSizeOptions={["5", "10", "20", "40"]}
+            showTotal={(total) => `共${total}条数据`}
+            pageSize={listQuery.pageSize}
+            hideOnSinglePage={true}
+            current={listQuery.pageNumber}
+            onChange={this.changePage}
+            onShowSizeChange={this.changePageSize}
+            showSizeChanger
+            showQuickJumper
+          />
         </Card>
         <EditForm
           visible={editUserModalVisible}

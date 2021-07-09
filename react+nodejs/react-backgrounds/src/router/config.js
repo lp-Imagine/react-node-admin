@@ -4,13 +4,14 @@
  * @Author: peng
  * @Date: 2021-06-24 17:32:48
  * @LastEditors: peng
- * @LastEditTime: 2021-07-06 17:37:54
+ * @LastEditTime: 2021-07-09 17:16:26
  */
 import {
   DesktopOutlined,
   TeamOutlined,
   UserOutlined,
   FileExcelOutlined,
+  TableOutlined,
 } from "@ant-design/icons";
 
 const menuList = [
@@ -23,13 +24,20 @@ const menuList = [
     path: "/user",
     title: "用户管理",
     icon: <UserOutlined />,
+    roles: ["admin"],
     children: [
       {
         path: "/user/list",
         title: "用户列表",
         icon: <TeamOutlined />,
+        roles: ["admin"],
       },
     ],
+  },
+  {
+    path: "/table",
+    title: "Table",
+    icon: <TableOutlined />,
   },
   {
     title: "Excel",

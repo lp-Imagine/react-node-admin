@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { toggleSiderBar } from "@/store/actions";
-import "./index.less";
+import "./index.scss";
 const Hamburger = (props) => {
   const { sidebarCollapsed, toggleSiderBar } = props;
   return (

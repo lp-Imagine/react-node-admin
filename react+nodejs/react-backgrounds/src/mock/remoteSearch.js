@@ -13,7 +13,7 @@ for (let i = 0; i < count; i++) {
 export default {
   transactionList: (_) => {
     return {
-      code: 20000,
+      code: 200,
       data: { items: list }
     }
   },

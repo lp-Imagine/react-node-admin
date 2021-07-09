@@ -1,3 +1,11 @@
+/*
+ * @Descripttion: 
+ * @version: 
+ * @Author: peng
+ * @Date: 2021-07-06 17:32:00
+ * @LastEditors: peng
+ * @LastEditTime: 2021-07-08 13:51:10
+ */
 import Mock from "mockjs";
 let List = [];
 const count = 100;
@@ -6,7 +14,7 @@ for (let i = 0; i < count; i++) {
   List.push(
     Mock.mock({
       id: i,
-      title: "@ctitle(5, 10)",
+      title: "@ctitle(1, 5)",
       author: "@cname",
       readings: "@integer(300, 5000)",
       "star|1-3": "★",
@@ -30,7 +38,7 @@ export default {
     });
     let pageList = mockList.slice(start, end);
     return {
-      code: 20000,
+      code: 200,
       data: {
         total: mockList.length,
         items: pageList,
@@ -43,7 +51,7 @@ export default {
     const index = List.indexOf(item[0]);
     List.splice(index, 1);
     return {
-      code: 20000,
+      code: 200,
     };
   },
   editItem: (config) => {
@@ -53,7 +61,7 @@ export default {
     const index = List.indexOf(item[0]);
     List.splice(index, 1, data);
     return {
-      code: 20000,
+      code: 200,
     };
   },
 };

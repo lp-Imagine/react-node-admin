@@ -4,7 +4,7 @@
  * @Author: peng
  * @Date: 2021-06-15 10:50:22
  * @LastEditors: peng
- * @LastEditTime: 2021-07-07 17:25:43
+ * @LastEditTime: 2021-07-09 17:26:35
  */
 const express = require("express");
 const jsonServer = require("json-server");
@@ -14,6 +14,32 @@ const Axios = require("axios");
 const jwt = require("jsonwebtoken");
 // const bcryptjs = require("bcryptjs");
 const utils = require("./utils/index");
+
+//**时间格式处理 */
+Date.prototype.format = function (format) {
+  var o = {
+    "M+": this.getMonth() + 1, //month
+    "d+": this.getDate(), //day
+    "h+": this.getHours(), //hour
+    "m+": this.getMinutes(), //minute
+    "s+": this.getSeconds(), //second
+    "q+": Math.floor((this.getMonth() + 3) / 3), //quarter
+    S: this.getMilliseconds(), //millisecond
+  };
+  if (/(y+)/.test(format))
+    format = format.replace(
+      RegExp.$1,
+      (this.getFullYear() + "").substr(4 - RegExp.$1.length)
+    );
+  for (var k in o) {
+    if (new RegExp("(" + k + ")").test(format))
+      format = format.replace(
+        RegExp.$1,
+        RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length)
+      );
+  }
+  return format;
+};
 
 const serve = express();
 const hostname = "http://192.168.8.225:9000";
@@ -51,12 +77,18 @@ serve.post("/user/register", async (req, res) => {
   }
   //**生成token */
   const token = jwt.sign({ id: req.body.username }, req.body.password);
+  const createDate = new Date().format("yyyy-MM-dd hh:mm:ss");
   const { data } = await Axios.post("/user", {
     ...req.body,
     hashPassword: req.body.password,
     // hashPassword: await bcryptjs.hash(req.body.password, 10),
     password: utils.decrypt(req.body.password),
     token: token,
+    role: "editor",
+    ip: req.body.ip,
+    adress: req.body.adress,
+    createDate: createDate,
+    loginDate: createDate,
   });
   res.send({
     code: 200,
@@ -70,7 +102,7 @@ serve.post("/user/register", async (req, res) => {
  * @return {Object}
  */
 serve.post("/user/login", async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, ip, adress } = req.body;
   const { data } = await Axios.get("/user", {
     params: {
       username,
@@ -93,7 +125,14 @@ serve.post("/user/login", async (req, res) => {
     res.send({
       code: 200,
       message: "登录成功",
-      data: { user: user.username, token: user.token },
+      data: { user: user.username, token: user.token, role: user.role },
+    });
+    const loginDate = new Date().format("yyyy-MM-dd hh:mm:ss");
+    await Axios.put(`/user/${user.id}`, {
+      ...user,
+      ip,
+      adress,
+      loginDate,
     });
   } else {
     res.send({
@@ -122,7 +161,7 @@ serve.post("/user/logout", (req, res) => {
 serve.get("/user/getinfo", async (req, res) => {
   const { token } = req.query;
   const { data } = await Axios.get("/user", {
-    params: token,
+    params: { token },
   });
 
   if (data.length <= 0) {
@@ -134,11 +173,18 @@ serve.get("/user/getinfo", async (req, res) => {
   }
 
   const user = data[0];
+  const { id, username, avatar, role, ip, adress, createDate, loginDate } =
+    user;
   let userInfo = {
-    id: user.id,
-    username: user.username,
-    avatar: user.avatar,
+    id,
+    username,
+    avatar,
     token: user.token,
+    role,
+    ip,
+    adress,
+    createDate,
+    loginDate,
   };
   res.send({
     code: 200,
@@ -168,24 +214,34 @@ serve.get("/user/userList", async (req, res) => {
  */
 
 serve.put("/user/editInfo", async (req, res) => {
-  const { id, password, username } = req.body;
+  const { id, password, username, title, role } = req.body;
+  const { data } = await Axios.get("/user", {
+    params: { id },
+  });
   const hashPassword = utils.encrypt(password);
   const token = jwt.sign({ id: username }, hashPassword);
-  const { data } = await Axios.put(`/user/${id}`, {
-    ...req.body,
-    hashPassword,
-    token,
-  });
-  if (data) {
-    res.send({
-      code: 200,
-      message: "操作成功",
+  const editResponse = data[0];
+  if (editResponse) {
+    const { data } = await Axios.put(`/user/${id}`, {
+      ...editResponse,
+      token,
+      password,
+      hashPassword,
+      username,
+      title,
+      role,
     });
-  } else {
-    res.send({
-      code: -1,
-      message: "操作异常",
-    });
+    if (data) {
+      res.send({
+        code: 200,
+        message: "操作成功",
+      });
+    } else {
+      res.send({
+        code: -1,
+        message: "操作异常",
+      });
+    }
   }
 });
 /**

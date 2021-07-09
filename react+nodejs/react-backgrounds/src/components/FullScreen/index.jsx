@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import screenfull from "screenfull";
 import { message, Tooltip } from "antd";
 import { FullscreenOutlined, FullscreenExitOutlined } from "@ant-design/icons";
-import "./index.less";
+import "./index.scss";
 
 const click = () => {
   if (!screenfull.isEnabled) {
