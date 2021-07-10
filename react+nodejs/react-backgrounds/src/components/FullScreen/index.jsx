@@ -36,7 +36,6 @@ const FullScreen = () => {
     <div className="fullScreen-container">
       <Tooltip placement="bottom" title={title}>
         {type}
-        {/* <Icon type={type} onClick={click} /> */}
       </Tooltip>
     </div>
   );

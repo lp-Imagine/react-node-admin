@@ -4,11 +4,11 @@
  * @Author: peng
  * @Date: 2021-06-15 10:50:22
  * @LastEditors: peng
- * @LastEditTime: 2021-07-09 17:26:35
+ * @LastEditTime: 2021-07-10 17:32:34
  */
 const express = require("express");
 const jsonServer = require("json-server");
-const routes = jsonServer.router("./data.json");
+const routers = jsonServer.router("./data.json");
 const middlewares = jsonServer.defaults();
 const Axios = require("axios");
 const jwt = require("jsonwebtoken");
@@ -116,7 +116,6 @@ serve.post("/user/login", async (req, res) => {
     });
     return;
   }
-
   const user = data[0];
   // const isOk = await bcryptjs.compare(hashPassword, user.password);
   const showPassword = utils.decrypt(password);
@@ -125,7 +124,12 @@ serve.post("/user/login", async (req, res) => {
     res.send({
       code: 200,
       message: "登录成功",
-      data: { user: user.username, token: user.token, role: user.role },
+      data: {
+        id: user.id,
+        user: user.username,
+        token: user.token,
+        role: user.role,
+      },
     });
     const loginDate = new Date().format("yyyy-MM-dd hh:mm:ss");
     await Axios.put(`/user/${user.id}`, {
@@ -159,9 +163,9 @@ serve.post("/user/logout", (req, res) => {
  * @return {Object}
  */
 serve.get("/user/getinfo", async (req, res) => {
-  const { token } = req.query;
+  const { id } = req.query;
   const { data } = await Axios.get("/user", {
-    params: { token },
+    params: { id },
   });
 
   if (data.length <= 0) {
@@ -173,8 +177,17 @@ serve.get("/user/getinfo", async (req, res) => {
   }
 
   const user = data[0];
-  const { id, username, avatar, role, ip, adress, createDate, loginDate } =
-    user;
+  const {
+    id,
+    username,
+    avatar,
+    role,
+    ip,
+    adress,
+    createDate,
+    loginDate,
+    title,
+  } = user;
   let userInfo = {
     id,
     username,
@@ -185,6 +198,7 @@ serve.get("/user/getinfo", async (req, res) => {
     adress,
     createDate,
     loginDate,
+    title,
   };
   res.send({
     code: 200,
@@ -258,8 +272,79 @@ serve.delete("/user/deleteUser", async (req, res) => {
   });
 });
 
+//**作品集 */
+/**
+ * @name: 创建作品集
+ * @msg:
+ * @param {Object} req
+ * @return {Object}
+ */
+serve.post("/works/add", async (req, res) => {
+  const response = await Axios.get("/workList", {
+    params: { title: req.body.title },
+  });
+  if (response.data.length) {
+    //**已存在该作品 */
+    res.send({
+      code: -1,
+      message: "该作品已存在",
+    });
+    return;
+  }
+
+  const { data } = await Axios.post("/workList", {
+    ...req.body,
+  });
+
+  res.send({
+    code: 200,
+    message: "创建成功",
+  });
+});
+
+/**
+ * @name: 查询作品集
+ * @msg:
+ * @param {Object} req
+ * @return {Object}
+ */
+serve.get("/works/find", async (req, res) => {
+  const { data } = await Axios.get("/workList");
+  if (data) {
+    res.send({
+      code: 200,
+      message: "操作成功",
+      data: data,
+    });
+  } else {
+    res.send({
+      code: -1,
+      message: "获取失败",
+    });
+  }
+});
+
+/**
+ * @name: 删除作品集
+ * @msg:
+ * @param {Object} req
+ * @return {Object}
+ */
+serve.post("/works/delete", async (req, res) => {
+  const { idList } = req.body;
+  if (idList && idList.length) {
+    await idList.forEach((id) => {
+      Axios.delete(`/workList/${id}`);
+    });
+  }
+  res.send({
+    code: 200,
+    message: "操作成功",
+  });
+});
+
 serve.use(middlewares);
-serve.use(routes);
+serve.use(routers);
 
 serve.listen(portname, function () {
   console.log(`服务成功启动在${hostname}`);

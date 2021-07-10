@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, DatePicker, Select, Rate, Modal, Button } from "antd";
+import { Form, Input, DatePicker, Select, Rate, Modal } from "antd";
 import moment from "moment";
 const EditForm = (props) => {
   const [form] = Form.useForm();

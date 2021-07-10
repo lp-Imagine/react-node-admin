@@ -4,7 +4,7 @@
  * @Author: peng
  * @Date: 2021-07-01 17:50:08
  * @LastEditors: peng
- * @LastEditTime: 2021-07-06 14:23:22
+ * @LastEditTime: 2021-07-10 17:32:08
  */
 import * as types from "../actions-types";
 import userApi from "@/api/user";
@@ -15,7 +15,6 @@ export const getInfo = (data) => (dispatch) => {
       .getUserInfo(data)
       .then((response) => {
         const { data } = response;
-        console.log(response, "getinfo");
         if (data.code === 200) {
           const userInfo = data.data;
           dispatch(setInfo(userInfo));

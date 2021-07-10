@@ -4,7 +4,7 @@
  * @Author: peng
  * @Date: 2021-07-02 10:55:29
  * @LastEditors: peng
- * @LastEditTime: 2021-07-09 17:49:49
+ * @LastEditTime: 2021-07-10 17:31:40
  */
 import React from "react";
 import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
@@ -15,7 +15,7 @@ import Login from "@/views/login";
 class Router extends React.Component {
   render() {
     console.log(this.props, "routerprops");
-    const { token, role, getInfo } = this.props;
+    const { token, role, getInfo,id } = this.props;
     console.log("propsrouter", token);
     return (
       <HashRouter>
@@ -32,7 +32,7 @@ class Router extends React.Component {
                 if (role) {
                   return <Layout />;
                 } else {
-                  getInfo({ token }).then(() => <Layout />);
+                  getInfo({ id }).then(() => <Layout />);
                 }
               }
             }}

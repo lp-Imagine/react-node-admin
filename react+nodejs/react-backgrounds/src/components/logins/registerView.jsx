@@ -52,7 +52,7 @@ class RegisterView extends React.Component {
         message.success(res.data.message);
         setUserToken(res.data.data.token);
         setToken(res.data.data.token);
-        getInfo({ token: res.data.data.token });
+        getInfo({ token: res.data.data.id });
         history.push("/home");
       } else {
         message.error(res.data.message);
@@ -74,7 +74,7 @@ class RegisterView extends React.Component {
                 prefix={<UserOutlined className="site-form-item-icon" />}
                 placeholder="用户名"
                 maxLength={16}
-                className="input"
+                className="my_input"
                 onFocus={() => this.setState({ loading: false })}
                 onBlur={() => this.setState({ loading: false })}
               />
@@ -94,7 +94,7 @@ class RegisterView extends React.Component {
                 type="password"
                 placeholder="密码"
                 maxLength={16}
-                className="input"
+                className="my_input"
                 onFocus={() => this.setState({ loading: false })}
                 onBlur={() => this.setState({ loading: false })}
               />

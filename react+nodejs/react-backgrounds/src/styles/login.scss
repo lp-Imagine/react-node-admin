@@ -25,18 +25,18 @@
     .login_register:hover {
       color: #4fa1d9;
     }
-    .input {
-      color: #61bfff !important;
-      border: none !important;
-      outline: none !important;
-      box-shadow: none !important;
-      background: transparent !important;
+    .my_input.ant-input-affix-wrapper {
+      color: #61bfff;
+      border: none;
+      outline: none;
+      box-shadow: none;
+      background: transparent;
     }
 
     .icon {
-      color: #61bfff !important;
-      font-size: 18px !important;
-      margin: -8px !important;
+      color: #61bfff;
+      font-size: 18px;
+      margin: -8px;
     }
   }
 }

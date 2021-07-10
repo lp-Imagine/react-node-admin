@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { removeToken } from "@/utils/session";
 import LoginView from "@/components/logins/loginView";
 import RegisterView from "@/components/logins/registerView";
+import Background from "@/components/Background";
 import Axios from "axios";
 import "@/styles/basic.scss";
 
@@ -24,8 +25,6 @@ class Login extends Component {
       const { data } = res;
       const dataStr = data.split("=")[1].replace(/;/g, "");
       const adressObj = JSON.parse(dataStr);
-      console.log("data", dataStr, adressObj);
-
       this.setState(
         {
           ip: adressObj.cip,
@@ -45,7 +44,8 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="page_login">
+      <Background url="https://imagineblog.vercel.app/img/banner/6.jpg">
+        {/* <div className="page_login"> */}
         <div className="container">
           <LoginView
             showViews={this.showViews}
@@ -66,7 +66,8 @@ class Login extends Component {
             }
           />
         </div>
-      </div>
+        {/* </div> */}
+      </Background>
     );
   }
 }

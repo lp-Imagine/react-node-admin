@@ -17,7 +17,6 @@ const LayoutHeader = (props) => {
     sidebarCollapsed,
     setInfoVisible,
     logout,
-    // getInfo,
     showSettings,
     fixedHeader,
   } = props;
@@ -50,7 +49,7 @@ const LayoutHeader = (props) => {
       <Menu.Item key="project">
         <a
           target="_blank"
-          href="https://github.com/NLRX-WJC/react-antd-admin-template"
+          href="https://github.com/lp-Imagine/react-node-admin"
           rel="noopener noreferrer"
         >
           项目地址
@@ -125,6 +124,5 @@ const mapStateToProps = (state) => {
 };
 export default connect(mapStateToProps, {
   logout,
-  // getInfo,
   setInfoVisible,
 })(LayoutHeader);

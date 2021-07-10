@@ -4,7 +4,7 @@
  * @Author: peng
  * @Date: 2021-07-02 10:16:44
  * @LastEditors: peng
- * @LastEditTime: 2021-07-09 13:56:06
+ * @LastEditTime: 2021-07-10 17:33:05
  */
 import { setUserToken, setOut } from "./user";
 import usersApi from "@/api/user";
@@ -36,7 +36,6 @@ export const logout = (token) => (dispatch) => {
     usersApi
       .logOut({ token })
       .then((response) => {
-        console.log(response, "ress");
         const { data } = response;
         if (data.code === 200) {
           dispatch(setOut());

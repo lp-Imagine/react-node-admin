@@ -1,65 +1,31 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
-import { setInfo, setInfoVisible } from "@/store/actions";
-import { Modal, Button, Upload, message, Avatar, Form, Input } from "antd";
-import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
+import { setInfoVisible } from "@/store/actions";
+import { Modal, message, Select, Form, Input } from "antd";
+import usersApi from "@/api/user";
 import "./index.scss";
 
-function getBase64(img, callback) {
-  const reader = new FileReader();
-  reader.addEventListener("load", () => callback(reader.result));
-  reader.readAsDataURL(img);
-}
-
-function beforeUpload(file) {
-  const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
-  if (!isJpgOrPng) {
-    message.error("You can only upload JPG/PNG file!");
-  }
-  const isLt2M = file.size / 1024 / 1024 < 2;
-  if (!isLt2M) {
-    message.error("Image must smaller than 2MB!");
-  }
-  return isJpgOrPng && isLt2M;
-}
-
 const SetUserInfo = (props) => {
-  const [loading, setLoading] = useState(false);
-  const [imageUrl, setImageUrl] = useState("");
-  const handleChange = (info) => {
-    console.log(info, "info");
-    if (info.file.status === "uploading") {
-      setLoading(true);
-      // return;
-    }
-    // if (info.file.status === "done") {
-    // Get this url from response in real world.
+  const { infoVisible, setInfoVisible, username, role, title, id } = props;
 
-    getBase64(info.file.originFileObj, (imageUrl) => {
-      setLoading(false);
-      setImageUrl(imageUrl);
+  const handleUserInfo = (values) => {
+    editUsers(values);
+  };
+
+  //**编辑个人信息 */
+  const editUsers = (values) => {
+    usersApi.editUserInfo(values).then((res) => {
+      if (res.data.code !== 200) {
+        message.error(res.data.message);
+        return;
+      }
+      message.success(res.data.message);
+      setInfoVisible();
     });
   };
 
-  const handleUserInfo = (values) => {
-    console.log(values, "fromvalues");
-    props.setInfoVisible();
-  };
-
-  const { infoVisible, setInfoVisible, name, avatar, role } = props;
-  if (avatar) {
-    setImageUrl(avatar);
-  }
-  const uploadButton = (
-    <div>
-      {loading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </div>
-  );
-
   const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
     const [form] = Form.useForm();
-    console.log(form, "form");
     return (
       <Modal
         visible={visible}
@@ -85,34 +51,17 @@ const SetUserInfo = (props) => {
           labelCol={{ span: 4 }}
           wrapperCol={{ span: 14 }}
         >
-          <Form.Item label="头像" name="imageUrl" initialValue={imageUrl}>
-            <Upload
-              name="avatar"
-              listType="picture-card"
-              className="avatar-uploader"
-              showUploadList={false}
-              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-              beforeUpload={beforeUpload}
-              onChange={handleChange}
-            >
-              {imageUrl ? (
-                <Avatar
-                  src={imageUrl}
-                  style={{ width: "100%", height: "100%" }}
-                />
-              ) : (
-                uploadButton
-              )}
-            </Upload>
+          <Form.Item label="用户ID" name="id" initialValue={id}>
+            <Input disabled />
           </Form.Item>
           <Form.Item
-            name="name"
-            initialValue={name}
+            name="username"
+            initialValue={username}
             label="用户名"
             rules={[
               {
                 required: true,
-                message: "Please input the title of collection!",
+                message: "请填写用户名!",
               },
             ]}
           >
@@ -120,15 +69,25 @@ const SetUserInfo = (props) => {
           </Form.Item>
           <Form.Item
             name="password"
-            label="修改密码"
+            label="密码"
             rules={[
               {
                 required: true,
-                message: "Please input the title of collection!",
+                message: "请填写密码!",
               },
             ]}
           >
             <Input.Password />
+          </Form.Item>
+          <Form.Item name="role" label="系统角色" initialValue={role}>
+            <Select style={{ width: 120 }} disabled>
+              <Select.Option value="admin">管理员</Select.Option>
+              <Select.Option value="editor">普通角色</Select.Option>
+              <Select.Option value="guest">游客</Select.Option>
+            </Select>
+          </Form.Item>
+          <Form.Item name="title" initialValue={title} label="描述">
+            <Input.TextArea />
           </Form.Item>
         </Form>
       </Modal>
@@ -151,6 +110,4 @@ const mapStateToProps = (state) => {
     ...state.user,
   };
 };
-export default connect(mapStateToProps, { setInfo, setInfoVisible })(
-  SetUserInfo
-);
+export default connect(mapStateToProps, { setInfoVisible })(SetUserInfo);

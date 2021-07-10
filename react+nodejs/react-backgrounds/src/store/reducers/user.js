@@ -4,15 +4,16 @@
  * @Author: peng
  * @Date: 2021-07-02 10:29:51
  * @LastEditors: peng
- * @LastEditTime: 2021-07-08 14:35:20
+ * @LastEditTime: 2021-07-10 17:19:27
  */
 import * as types from "../actions-types";
 import { getToken } from "@/utils/session";
 const initUserInfo = {
   id: "",
-  name: "",
+  username: "",
   role: "",
   avatar: "",
+  title: "",
   token: getToken(),
   infoVisible: false,
 };
@@ -27,9 +28,10 @@ export default function user(state = initUserInfo, action) {
       return {
         ...state,
         id: action.id,
-        name: action.username,
+        username: action.username,
         avatar: action.avatar || "",
         role: action.role || "",
+        title: action.title || "",
       };
     case types.SET_INFO_VISIBLE:
       return {

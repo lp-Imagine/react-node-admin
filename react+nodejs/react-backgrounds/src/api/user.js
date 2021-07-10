@@ -4,7 +4,7 @@
  * @Author: peng
  * @Date: 2021-06-24 13:36:45
  * @LastEditors: peng
- * @LastEditTime: 2021-07-09 11:23:26
+ * @LastEditTime: 2021-07-10 16:56:23
  */
 
 import server from "@/utils/request";
@@ -41,15 +41,6 @@ const users = {
   getUserInfo(data) {
     return server.get("/user/getinfo", { params: data });
   },
-
-  /**
-   * 用户信息设置
-   * @param {Object} data
-   * @return {Object}
-   */
-  // setUserInfo(data) {
-  //   return server.post("/user/setinfo", data);
-  // },
 
   /**
    * 获取用户列表

@@ -138,9 +138,8 @@ class LoginView extends React.Component {
 
     reqLogin(params)
       .then((res) => {
-        console.log(res, "res");
         message.success(res.message);
-        getInfo({ token: res.data.token });
+        getInfo({ token: res.data.id });
         history.push("/home");
       })
       .catch((error) => {
@@ -171,7 +170,7 @@ class LoginView extends React.Component {
                 autocomplete="off"
                 prefix={<UserOutlined className="site-form-item-icon" />}
                 placeholder="用户名"
-                className="input"
+                className="my_input"
                 onFocus={() => this.setState({ loading: false })}
                 onBlur={() => this.setState({ loading: false })}
               />
@@ -190,7 +189,7 @@ class LoginView extends React.Component {
                 prefix={<LockOutlined className="site-form-item-icon" />}
                 type="password"
                 placeholder="密码"
-                className="input"
+                className="my_input"
                 onFocus={() => this.setState({ loading: false })}
                 onBlur={() => this.setState({ loading: false })}
               />
@@ -217,7 +216,7 @@ class LoginView extends React.Component {
                   <Input
                     maxLength={4}
                     placeholder="验证码"
-                    className="input"
+                    className="my_input"
                     onFocus={() => this.setState({ loading: false })}
                     onBlur={() => this.setState({ loading: false })}
                   />
