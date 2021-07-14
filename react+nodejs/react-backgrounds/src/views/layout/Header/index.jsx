@@ -13,6 +13,7 @@ const { Header } = Layout;
 const LayoutHeader = (props) => {
   const {
     token,
+    id,
     avatar,
     sidebarCollapsed,
     setInfoVisible,
@@ -20,7 +21,7 @@ const LayoutHeader = (props) => {
     showSettings,
     fixedHeader,
   } = props;
-  // token && getInfo({ token });
+  // id && getInfo({ id });
   const handleLogout = (token) => {
     Modal.confirm({
       title: "注销",

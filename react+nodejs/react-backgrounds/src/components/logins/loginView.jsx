@@ -7,6 +7,7 @@ import { randomNum, encrypt } from "@/utils/index";
 import "@/styles/login.scss";
 import { reqLogin } from "@/store/actions";
 import { getInfo } from "@/store/actions";
+import { setStorge } from "@/utils/session";
 class LoginView extends React.Component {
   constructor(props) {
     super(props);
@@ -139,7 +140,8 @@ class LoginView extends React.Component {
     reqLogin(params)
       .then((res) => {
         message.success(res.message);
-        getInfo({ token: res.data.id });
+        // getInfo({ id: res.data.id });
+        setStorge(res.data.id)
         history.push("/home");
       })
       .catch((error) => {

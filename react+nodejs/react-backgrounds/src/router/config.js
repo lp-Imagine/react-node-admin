@@ -4,7 +4,7 @@
  * @Author: peng
  * @Date: 2021-06-24 17:32:48
  * @LastEditors: peng
- * @LastEditTime: 2021-07-10 14:24:59
+ * @LastEditTime: 2021-07-14 16:47:25
  */
 import {
   HomeTwoTone,
@@ -18,6 +18,13 @@ import {
   FileExcelTwoTone,
   FileMarkdownOutlined,
   FolderOpenTwoTone,
+  CodeTwoTone,
+  FormatPainterOutlined,
+  SearchOutlined,
+  FileTextOutlined,
+  SelectOutlined,
+  AreaChartOutlined,
+  PieChartTwoTone,
 } from "@ant-design/icons";
 
 const menuList = [
@@ -42,7 +49,7 @@ const menuList = [
   },
   {
     path: "/table",
-    title: "Table",
+    title: "表格",
     icon: <TabletTwoTone />,
   },
   {
@@ -83,9 +90,41 @@ const menuList = [
     ],
   },
   {
-    title: "项目",
+    title: "作品集",
     path: "/demo",
     icon: <FolderOpenTwoTone />,
+  },
+  {
+    title: "UI组件",
+    path: "/components",
+    icon: <CodeTwoTone />,
+    children: [
+      {
+        title: "弹出层",
+        path: "/components/model",
+        icon: <FormatPainterOutlined />,
+      },
+      {
+        title: "按钮",
+        path: "/components/button",
+        icon: <SearchOutlined />,
+      },
+      {
+        title: "Typography排版",
+        path: "/components/Typography",
+        icon: <FileTextOutlined />,
+      },
+      {
+        title: "选择器",
+        path: "/components/select",
+        icon: <SelectOutlined />,
+      },
+    ],
+  },
+  {
+    title: "可视化",
+    path: "/dataV",
+    icon: <PieChartTwoTone />,
   },
 ];
 

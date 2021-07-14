@@ -9,6 +9,7 @@ import { withRouter } from "react-router";
 import { setToken } from "@/utils/session";
 import { setUserToken } from "@/store/actions";
 import { getInfo } from "@/store/actions";
+import { setStorge } from "@/utils/session";
 class RegisterView extends React.Component {
   state = {
     loading: false,
@@ -52,7 +53,8 @@ class RegisterView extends React.Component {
         message.success(res.data.message);
         setUserToken(res.data.data.token);
         setToken(res.data.data.token);
-        getInfo({ token: res.data.data.id });
+        // getInfo({ token: res.data.data.id });
+        setStorge(res.data.data.id);
         history.push("/home");
       } else {
         message.error(res.data.message);

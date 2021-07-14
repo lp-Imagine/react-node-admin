@@ -4,7 +4,7 @@
  * @Author: peng
  * @Date: 2021-07-02 15:42:17
  * @LastEditors: peng
- * @LastEditTime: 2021-07-10 14:27:05
+ * @LastEditTime: 2021-07-14 13:46:32
  */
 import Loadable from "react-loadable";
 import Loading from "@/components/Loading";
@@ -41,6 +41,27 @@ const Demo = Loadable({
   loader: () => import("@/views/page/Collection/index"),
   loading: Loading,
 });
+const ComponentModel = Loadable({
+  loader: () => import("@/views/page/FeedbackDemo"),
+  loading: Loading,
+});
+const ComponentBtn = Loadable({
+  loader: () => import("@/views/page/ButtonDemo"),
+  loading: Loading,
+});
+const ComponentText = Loadable({
+  loader: () => import("@/views/page/TypographyDemo"),
+  loading: Loading,
+});
+const ComponentSelect = Loadable({
+  loader: () => import("@/views/page/SelectDemo"),
+  loading: Loading,
+});
+const DataVDemo = Loadable({
+  loader: () => import("@/views/page/dataV"),
+  loading: Loading,
+});
+
 
 export default [
   { path: "/home", component: Home },
@@ -51,4 +72,9 @@ export default [
   { path: "/editor/richTexteditor", component: RichTexteditor },
   { path: "/editor/markdown", component: MarkDown },
   { path: "/demo", component: Demo },
+  { path: "/components/model", component: ComponentModel },
+  { path: "/components/button", component: ComponentBtn },
+  { path: "/components/Typography", component: ComponentText },
+  { path: "/components/select", component: ComponentSelect },
+  { path: "/dataV", component: DataVDemo }
 ];

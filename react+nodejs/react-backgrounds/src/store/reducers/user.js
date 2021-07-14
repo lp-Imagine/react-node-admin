@@ -4,12 +4,12 @@
  * @Author: peng
  * @Date: 2021-07-02 10:29:51
  * @LastEditors: peng
- * @LastEditTime: 2021-07-10 17:19:27
+ * @LastEditTime: 2021-07-14 15:05:03
  */
 import * as types from "../actions-types";
-import { getToken } from "@/utils/session";
+import { getToken, getStorge } from "@/utils/session";
 const initUserInfo = {
-  id: "",
+  id: getStorge(),
   username: "",
   role: "",
   avatar: "",

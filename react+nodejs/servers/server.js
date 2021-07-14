@@ -4,7 +4,7 @@
  * @Author: peng
  * @Date: 2021-06-15 10:50:22
  * @LastEditors: peng
- * @LastEditTime: 2021-07-10 17:32:34
+ * @LastEditTime: 2021-07-13 11:43:43
  */
 const express = require("express");
 const jsonServer = require("json-server");
@@ -177,19 +177,10 @@ serve.get("/user/getinfo", async (req, res) => {
   }
 
   const user = data[0];
-  const {
-    id,
-    username,
-    avatar,
-    role,
-    ip,
-    adress,
-    createDate,
-    loginDate,
-    title,
-  } = user;
+  const { username, avatar, role, ip, adress, createDate, loginDate, title } =
+    user;
   let userInfo = {
-    id,
+    id: user.id,
     username,
     avatar,
     token: user.token,

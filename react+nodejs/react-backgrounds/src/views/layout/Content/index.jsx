@@ -10,10 +10,10 @@ import menuList from "@/router/config";
 const { Content } = Layout;
 
 const getPageTitle = (menuList, pathname) => {
-  let title = "Ant Design Pro";
+  let title = "后台管理Demo";
   let item = getMenuItemInMenuListByProperty(menuList, "path", pathname);
   if (item) {
-    title = `${item.title} - Ant Design Pro`;
+    title = `${item.title} - 后台管理Demo`;
   }
   return title;
 };
@@ -21,10 +21,10 @@ const getPageTitle = (menuList, pathname) => {
 const LayoutContent = (props) => {
   const { role, location } = props;
   const { pathname } = location;
-  // const handleFilter = (route) => {
-  //   // 过滤没有权限的页面
-  //   return role === "admin" || !route.roles || route.roles.includes(role);
-  // };
+  const handleFilter = (route) => {
+    // 过滤没有权限的页面
+    return role === "admin" || !route.roles || route.roles.includes(role);
+  };
   return (
     <DocumentTitle title={getPageTitle(menuList, pathname)}>
       <Content style={{ height: "calc(100% - 100px)" }}>
@@ -39,7 +39,7 @@ const LayoutContent = (props) => {
               <Redirect exact from="/" to="/home" />
               {routeList.map((route) => {
                 return (
-                  // handleFilter(route)
+                  handleFilter(route) &&
                   route && (
                     <Route
                       component={route.component}
