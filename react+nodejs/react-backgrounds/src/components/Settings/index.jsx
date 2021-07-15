@@ -6,7 +6,7 @@ import { SettingOutlined } from "@ant-design/icons";
 import "./index.scss";
 const Settings = (props) => {
   const { toggleSettingPanel } = props;
-  console.log(toggleSettingPanel,'togg')
+  console.log(toggleSettingPanel, "togg");
   return (
     <div className="settings-container">
       <Tooltip placement="bottom" title="系统设置">

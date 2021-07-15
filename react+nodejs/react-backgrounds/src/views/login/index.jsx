@@ -45,8 +45,11 @@ class Login extends Component {
   render() {
     return (
       <Background url="https://imagineblog.vercel.app/img/banner/6.jpg">
-        {/* <div className="page_login"> */}
         <div className="container">
+          <div className="login_view__title">
+            <h3>后台管理系统Demo</h3>
+          </div>
+
           <LoginView
             showViews={this.showViews}
             showStatus={this.state.show}
@@ -66,7 +69,6 @@ class Login extends Component {
             }
           />
         </div>
-        {/* </div> */}
       </Background>
     );
   }

@@ -66,7 +66,6 @@ class Excel extends Component {
   fetchData = () => {
     excelList().then((response) => {
       const list = response.data.data.items;
-      console.log(list,'llliiisstt')
       if (this._isMounted) {
         this.setState({ list });
       }
@@ -140,9 +139,6 @@ class Excel extends Component {
               <Form.Item label="文件名:">
                 <Input
                   style={{ width: "250px" }}
-                  // prefix={
-                  //   <Icon type="file" style={{ color: "rgba(0,0,0,.25)" }} />
-                  // }
                   placeholder="请输入文件名(默认excel-file)"
                   onChange={this.filenameChange}
                 />

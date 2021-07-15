@@ -6,23 +6,35 @@ import {
   BorderBox1,
   BorderBox8,
   BorderBox13,
-  Decoration1,
+  Decoration3,
+  BorderBox10,
   ScrollBoard,
   ScrollRankingBoard,
   Loading,
+  ActiveRingChart,
+  Decoration8,
+  Decoration5,
+  DigitalFlop,
 } from "@jiaminghi/data-view-react";
 import "./index.css";
 
 class MyDataV extends Component {
   constructor(props) {
     super(props);
+
+    function formatter(number) {
+      const numbers = number.toString().split("").reverse();
+      const segs = [];
+      while (numbers.length) segs.push(numbers.splice(0, 3).join(""));
+      return segs.join(",").split("").reverse().join("");
+    }
+
     this.state = {
       myChart1: null,
       myChart2: null,
       myChart3: null,
       myChart4: null,
       myChart5: null,
-      myChart6: null,
       isLoading: true,
       topdata: {
         data: [
@@ -59,6 +71,7 @@ class MyDataV extends Component {
       },
       tabledata: {
         header: ["列1", "列2", "列3"],
+        headerBGC: "",
         data: [
           ["行1列1", "行1列2", "行1列3"],
           ["行2列1", "行2列2", "行2列3"],
@@ -75,6 +88,42 @@ class MyDataV extends Component {
         columnWidth: [50],
         align: ["center"],
       },
+      ringData: {
+        data: [
+          {
+            name: "周口",
+            value: 55,
+          },
+          {
+            name: "南阳",
+            value: 120,
+          },
+          {
+            name: "西峡",
+            value: 78,
+          },
+          {
+            name: "驻马店",
+            value: 66,
+          },
+          {
+            name: "新乡",
+            value: 80,
+          },
+        ],
+        digitalFlopStyle: {
+          fontSize: 25,
+          fill: "#b2e269",
+        },
+        animationCurve: "easeInBounce",
+        radius: 70,
+      },
+      flopData: {
+        number: [12345678910987],
+        content: "{nt}",
+        rowGap: 3,
+        formatter,
+      },
     };
   }
   componentDidMount() {
@@ -83,121 +132,14 @@ class MyDataV extends Component {
     this.initalECharts2();
     this.initalECharts3();
     this.initalECharts4();
-    this.initalECharts5();
     const that = this;
     window.onresize = function () {
-      console.log(that.state.myChart1, "2222222222222");
       that.state.myChart1.resize();
       that.state.myChart2.resize();
       that.state.myChart3.resize();
       that.state.myChart4.resize();
       that.state.myChart5.resize();
-      that.state.myChart6.resize();
     };
-  }
-  initalECharts5() {
-    this.setState(
-      { myChart6: echarts.init(document.getElementById("mainMap3")) },
-      () => {
-        this.state.myChart6.setOption({
-          title: {
-            show: true,
-            text: "近6个月观众活跃趋势",
-            x: "center",
-            textStyle: {
-              //主标题文本样式{"fontSize": 18,"fontWeight": "bolder","color": "#333"}
-              fontSize: 14,
-              fontStyle: "normal",
-              fontWeight: "normal",
-              color: "#01c4f7",
-            },
-          },
-          tooltip: {
-            trigger: "axis",
-            axisPointer: {
-              type: "shadow",
-            },
-          },
-          legend: {
-            data: ["观看人数、次数（个）", "场均观看数（场）"],
-            textStyle: {
-              fontSize: 12,
-              color: "#ffffff",
-            },
-            top: 20,
-            itemWidth: 20, // 设置宽度
-
-            itemHeight: 12, // 设置高度
-
-            itemGap: 10, // 设置间距
-          },
-          grid: {
-            left: "3%",
-            right: "4%",
-            bottom: "3%",
-            containLabel: true,
-          },
-          xAxis: {
-            type: "category",
-            data: ["1月", "2月", "3月", "4月", "五月", "6月"],
-            splitLine: {
-              show: true,
-              lineStyle: {
-                color: ["#07234d"],
-              },
-            },
-            axisLabel: {
-              show: true,
-              textStyle: {
-                color: "#c3dbff", //更改坐标轴文字颜色
-                fontSize: 12, //更改坐标轴文字大小
-              },
-            },
-          },
-          yAxis: {
-            type: "value",
-            boundaryGap: [0, 0.01],
-            splitLine: {
-              show: true,
-              lineStyle: {
-                color: ["#07234d"],
-              },
-            },
-            axisLabel: {
-              show: true,
-              textStyle: {
-                color: "#c3dbff", //更改坐标轴文字颜色
-                fontSize: 12, //更改坐标轴文字大小
-              },
-            },
-          },
-          series: [
-            {
-              name: "观看人数、次数（个）",
-              type: "bar",
-              data: [140, 170, 90, 180, 90, 90],
-              itemStyle: {
-                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                  { offset: 0, color: "#9408fc" },
-                  { offset: 1, color: "#05aed3" },
-                ]),
-              },
-            },
-            {
-              name: "场均观看数（场）",
-              type: "bar",
-              data: [120, 130, 80, 130, 120, 120],
-              itemStyle: {
-                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                  { offset: 0, color: "#13b985" },
-                  { offset: 1, color: "#dc9b18" },
-                ]),
-              },
-            },
-          ],
-        });
-      }
-    );
   }
   initalECharts4() {
     this.setState(
@@ -206,10 +148,9 @@ class MyDataV extends Component {
         this.state.myChart5.setOption({
           title: {
             show: true,
-            text: "近6个月主播活跃趋势",
+            text: "柱状趋势图",
             x: "center",
             textStyle: {
-              //主标题文本样式{"fontSize": 18,"fontWeight": "bolder","color": "#333"}
               fontSize: 14,
               fontStyle: "normal",
               fontWeight: "normal",
@@ -223,7 +164,7 @@ class MyDataV extends Component {
             },
           },
           legend: {
-            data: ["开播主播数（个）", "开播场次数（场）"],
+            data: ["在线数量（个）", "参加次数（场）"],
             textStyle: {
               fontSize: 12,
               color: "#ffffff",
@@ -277,7 +218,7 @@ class MyDataV extends Component {
           },
           series: [
             {
-              name: "开播主播数（个）",
+              name: "个数（个）",
               type: "bar",
               data: [140, 170, 90, 180, 90, 90],
               itemStyle: {
@@ -288,7 +229,7 @@ class MyDataV extends Component {
               },
             },
             {
-              name: "开播场次数（场）",
+              name: "次数（场）",
               type: "bar",
               data: [120, 130, 80, 130, 120, 120],
               itemStyle: {
@@ -308,10 +249,18 @@ class MyDataV extends Component {
       { myChart4: echarts.init(document.getElementById("countyMap")) },
       () => {
         this.state.myChart4.setOption({
-          color: ["#ff832e", "#37cbff", "#b3e269"],
+          color: ["#ff832e", "#37cbff", "#b3e269", "#13b985", "#9408fc"],
+          tooltip: {
+            trigger: "axis",
+            axisPointer: {
+              // Use axis to trigger tooltip
+              type: "shadow", // 'shadow' as default; can also be 'line' or 'shadow'
+            },
+          },
           legend: {
-            top: 30,
-            data: ["美妆", "理财", "教育", "母婴", "百货"],
+            top: 20,
+            data: ["直接访问", "邮件营销", "联盟广告", "视频广告", "搜索引擎"],
+
             textStyle: {
               fontSize: 12,
               color: "#ffffff",
@@ -347,7 +296,7 @@ class MyDataV extends Component {
           },
           yAxis: {
             type: "category",
-            data: ["上海", "广州", "杭州", "天津", "北京", "厦门", "合肥"],
+            data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
             axisLabel: {
               show: true,
               textStyle: {
@@ -358,7 +307,7 @@ class MyDataV extends Component {
           },
           series: [
             {
-              name: "美妆",
+              name: "直接访问",
               type: "bar",
               stack: "总量",
               label: {
@@ -368,7 +317,7 @@ class MyDataV extends Component {
               data: [320, 302, 301, 334, 390, 330, 320],
             },
             {
-              name: "理财",
+              name: "邮件营销",
               type: "bar",
               stack: "总量",
               label: {
@@ -378,7 +327,7 @@ class MyDataV extends Component {
               data: [120, 132, 101, 134, 90, 230, 210],
             },
             {
-              name: "教育",
+              name: "联盟广告",
               type: "bar",
               stack: "总量",
               label: {
@@ -388,7 +337,7 @@ class MyDataV extends Component {
               data: [220, 182, 191, 234, 290, 330, 310],
             },
             {
-              name: "母婴",
+              name: "视频广告",
               type: "bar",
               stack: "总量",
               label: {
@@ -398,7 +347,7 @@ class MyDataV extends Component {
               data: [150, 212, 201, 154, 190, 330, 410],
             },
             {
-              name: "百货",
+              name: "搜索引擎",
               type: "bar",
               stack: "总量",
               label: {
@@ -469,7 +418,7 @@ class MyDataV extends Component {
           yAxis: [
             {
               type: "category",
-              data: ["科技", "母婴", "男士", "美妆", "珠宝", "宠物"],
+              data: ["巴西", "印尼", "美国", "印度", "中国"],
               axisTick: {
                 alignWithLabel: true,
               },
@@ -484,10 +433,9 @@ class MyDataV extends Component {
           ],
           series: [
             {
-              name: "直接访问",
+              name: "2012年",
               type: "bar",
-              barWidth: "60%",
-              data: [10, 52, 200, 334, 390, 330],
+              data: [18203, 23489, 29034, 104970, 131744],
             },
           ],
         });
@@ -508,7 +456,7 @@ class MyDataV extends Component {
             orient: "vertical",
             top: 30,
             right: "20%",
-            data: ["美妆", "百度", "教育", "理财", "母婴"],
+            data: ["搜索引擎", "直接访问", "邮件营销", "联盟广告", "视频广告"],
             textStyle: {
               fontSize: 12,
               color: "#ffffff",
@@ -534,7 +482,7 @@ class MyDataV extends Component {
               emphasis: {
                 label: {
                   show: true,
-                  fontSize: "30",
+                  fontSize: "20",
                   fontWeight: "bold",
                 },
               },
@@ -542,11 +490,11 @@ class MyDataV extends Component {
                 show: false,
               },
               data: [
-                { value: 335, name: "美妆" },
-                { value: 310, name: "百度" },
-                { value: 234, name: "教育" },
-                { value: 135, name: "理财" },
-                { value: 1548, name: "母婴" },
+                { value: 1048, name: "搜索引擎" },
+                { value: 735, name: "直接访问" },
+                { value: 580, name: "邮件营销" },
+                { value: 484, name: "联盟广告" },
+                { value: 300, name: "视频广告" },
               ],
             },
           ],
@@ -624,7 +572,7 @@ class MyDataV extends Component {
       return res;
     };
     //报表配置
-    const originName = "浙江";
+    const originName = "江西";
     const flySeries = [];
     [[originName, flyVal]].forEach(function (item, i) {
       flySeries.push(
@@ -736,21 +684,21 @@ class MyDataV extends Component {
 
           series: [
             {
-              name: "2011全国GDP分布",
+              name: "2021全国GDP分布",
               type: "map",
               mapType: "china",
               mapLocation: {
                 x: "left",
               },
-              // selectedMode: 'multiple',
+              selectedMode: "multiple",
               itemStyle: {
                 normal: {
                   label: { show: true, color: "#fff" },
                   borderWidth: 0,
                 },
-                // emphasis: { label: { show: true } },
-                // borderWidth: 0,
-                // borderColor: '#eee',
+                emphasis: { label: { show: true } },
+                borderWidth: 0,
+                borderColor: "#eee",
               },
 
               data: [
@@ -796,7 +744,7 @@ class MyDataV extends Component {
   }
 
   render() {
-    const { topdata, tabledata, isLoading } = this.state;
+    const { topdata, tabledata, isLoading, ringData, flopData } = this.state;
     setTimeout(() => {
       this.setState({
         isLoading: false,
@@ -805,8 +753,9 @@ class MyDataV extends Component {
     return (
       <div className="data">
         <header className="header_main">
-          <div className="left_bg"></div>
-          <div className="right_bg"></div>
+          <Decoration8 className="left_bg"></Decoration8>
+          <Decoration5 className="center_bg"></Decoration5>
+          <Decoration8 reverse={true} className="right_bg"></Decoration8>
           <h3>数据可视化大屏</h3>
         </header>
         <div className="wrapper">
@@ -815,25 +764,41 @@ class MyDataV extends Component {
               <div className="col-lg-3 fill-h" style={{ width: "25%" }}>
                 <div className="xpanel-wrapper xpanel-wrapper-5">
                   <BorderBox13>
+                    <div
+                      className="content_title"
+                      style={{ marginTop: "15px" }}
+                    >
+                      排名轮播表
+                    </div>
                     <div className="xpanel">
                       <div className="fill-h" id="mainMap1">
                         {isLoading ? (
                           <Loading style={{ color: "#fff" }}>加载中...</Loading>
                         ) : (
-                          <ScrollRankingBoard config={topdata} />
+                          <ScrollRankingBoard
+                            config={topdata}
+                            style={{ marginTop: "15px" }}
+                          />
                         )}
                       </div>
                     </div>
                   </BorderBox13>
                 </div>
-                <div className="xpanel-wrapper xpanel-wrapper-4">
-                  <BorderBox13>
+                <div
+                  className="xpanel-wrapper xpanel-wrapper-4"
+                  style={{ display: "flex" }}
+                >
+                  <BorderBox10>
+                    <div className="content_title">轮播表</div>
                     <div className="xpanel">
                       <div className="fill-h" id="worldMap">
-                        <ScrollBoard config={tabledata} />
+                        <ScrollBoard
+                          config={tabledata}
+                          style={{ marginTop: "15px" }}
+                        />
                       </div>
                     </div>
-                  </BorderBox13>
+                  </BorderBox10>
                 </div>
               </div>
               <div className="col-lg-6 fill-h" style={{ width: "50%" }}>
@@ -861,18 +826,11 @@ class MyDataV extends Component {
                         transform: "translateX(-50%)",
                       }}
                     >
-                      <p>全国淘宝主播数量：</p>
-                      <div className="databg">6</div>
-                      <div className="databg">6</div>
-                      <div className="databg">6</div>
-                      <div className="databg">6</div>
-                      <div className="databg">6</div>
-                      <div className="databg">6</div>
-                      <div className="databg">6</div>
-                      <div className="databg">6</div>
-                      <div className="databg">6</div>
+                      <span style={{ fontSize: 20, fontWeight: 700 }}>
+                        数量统计：
+                      </span>
+                      <DigitalFlop config={flopData} className="databg" />
                     </div>
-                    <div>全淘宝主播数量</div>
                     <div
                       style={{
                         height: 60,
@@ -882,7 +840,8 @@ class MyDataV extends Component {
                         right: 20,
                       }}
                     >
-                      <Decoration1 style={{ width: "100%", height: "100%" }} />
+                      {/* <Decoration1 style={{ width: "100%", height: "100%" }} /> */}
+                      <Decoration3 style={{ width: "100%", height: "100%" }} />
                     </div>
 
                     <div className="fill-h" id="mainMap"></div>
@@ -905,10 +864,23 @@ class MyDataV extends Component {
                       </div>
                     </BorderBox8>
                   </div>
-                  <div style={{ width: "50%", paddingLeft: 8 }}>
+
+                  <div
+                    style={{
+                      width: "50%",
+                      paddingLeft: 8,
+                      position: "relative",
+                    }}
+                  >
+                    <div
+                      className="content_title"
+                      style={{ marginTop: "15px" }}
+                    >
+                      堆叠条形图
+                    </div>
                     <BorderBox8>
                       <div className="xpanel">
-                        <div className="fill-h" id="mainMap3"></div>
+                        <div className="fill-h" id="countyMap"></div>
                       </div>
                     </BorderBox8>
                   </div>
@@ -919,7 +891,7 @@ class MyDataV extends Component {
                   className="xpanel-wrapper xpanel-wrapper-6"
                   style={{ position: "relative" }}
                 >
-                  <div className="content_title">主播类型占比</div>
+                  <div className="content_title">环形图</div>
                   <BorderBox1>
                     <div className="xpanel">
                       <div className="fill-h" id="provinceMap"></div>
@@ -927,24 +899,29 @@ class MyDataV extends Component {
                   </BorderBox1>
                 </div>
                 <div
-                  className="xpanel-wrapper xpanel-wrapper-6"
+                  className="xpanel-wrapper xpanel-wrapper-3"
                   style={{ position: "relative" }}
                 >
-                  <div className="content_title">重点品类排名</div>
+                  <div className="content_title">动态环图</div>
                   <BorderBox1>
                     <div className="xpanel">
-                      <div className="fill-h" id="cityMap"></div>
+                      <div className="fill-h" id="ringMap">
+                        <ActiveRingChart
+                          config={ringData}
+                          style={{ width: "100%", height: "100%" }}
+                        />
+                      </div>
                     </div>
                   </BorderBox1>
                 </div>
                 <div
-                  className="xpanel-wrapper xpanel-wrapper-4"
+                  className="xpanel-wrapper xpanel-wrapper-3"
                   style={{ position: "relative" }}
                 >
-                  <div className="content_title">Top10城市各品类占比</div>
+                  <div className="content_title">世界人口排行</div>
                   <BorderBox1>
                     <div className="xpanel">
-                      <div className="fill-h" id="countyMap"></div>
+                      <div className="fill-h" id="cityMap"></div>
                     </div>
                   </BorderBox1>
                 </div>

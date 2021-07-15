@@ -4,10 +4,9 @@
  * @Author: peng
  * @Date: 2021-07-14 15:45:56
  * @LastEditors: peng
- * @LastEditTime: 2021-07-14 16:36:11
+ * @LastEditTime: 2021-07-15 18:33:21
  */
 import { Route, Switch, Redirect, withRouter } from "react-router-dom";
-// import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { getInfo } from "@/store/actions";
 import routerList from "./routerMap";
@@ -20,9 +19,14 @@ import NoFound from "@/views/404";
 const Routes = (props) => {
   const { id, token, role, getInfo, location } = props;
   const { pathname } = location;
-  const targetRouterConfigNav = routerList.find((v) => v.path === pathname);
-  const targetRouterConfigPage = pageList.find((e) => e.path === pathname);
-  console.log(props, "routerprops", pathname);
+  const splitPath = "/" + pathname.split("/")[1].toString();
+  const targetRouterConfigNav = routerList.find(
+    (v) => v.path.indexOf(splitPath) !== -1
+  );
+  const targetRouterConfigPage = pageList.find(
+    (e) => e.path.indexOf(splitPath) !== -1
+  );
+
   const Configs = () => {
     if (targetRouterConfigNav || targetRouterConfigPage) {
       return targetRouterConfigNav ? <Layout /> : <FullPage />;

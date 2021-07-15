@@ -14,7 +14,9 @@ class DataVDemo extends React.Component {
       <div>
         <TypingCard title="数据可视化面板" source={cardContent} />
         <br />
-        <Button type="primary" onClick={goDataV}>前往可视化大屏界面</Button>
+        <Button type="primary" onClick={goDataV} style={{ margin: 20 }}>
+          前往可视化大屏界面
+        </Button>
       </div>
     );
   }

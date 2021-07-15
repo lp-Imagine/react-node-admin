@@ -4,7 +4,7 @@
  * @Author: peng
  * @Date: 2021-07-02 15:42:17
  * @LastEditors: peng
- * @LastEditTime: 2021-07-14 13:46:32
+ * @LastEditTime: 2021-07-15 16:50:40
  */
 import Loadable from "react-loadable";
 import Loading from "@/components/Loading";
@@ -62,7 +62,6 @@ const DataVDemo = Loadable({
   loading: Loading,
 });
 
-
 export default [
   { path: "/home", component: Home },
   { path: "/user/list", component: userList, roles: ["admin"] },
@@ -76,5 +75,5 @@ export default [
   { path: "/components/button", component: ComponentBtn },
   { path: "/components/Typography", component: ComponentText },
   { path: "/components/select", component: ComponentSelect },
-  { path: "/dataV", component: DataVDemo }
+  { path: "/dataV", component: DataVDemo },
 ];

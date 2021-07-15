@@ -2,11 +2,12 @@
   .register_log,
   .login_log {
     .title {
-      height: 60px;
+      height: 50px;
       color: #d3d7f7;
       font-size: 16px;
       margin-bottom: 0;
-      font-weight: 500;
+      margin-top: 10px;
+      font-weight: 600;
     }
     .login-form-button {
       border-radius: 50px;

@@ -33,7 +33,7 @@ class RegisterView extends React.Component {
       loading: true,
     });
     const hide = message.loading("注册中...", 0);
-    //加密密码
+    //**加密密码*/
     const ciphertext = encrypt(values.password);
     const { ip, adress } = this.props;
     const params = {

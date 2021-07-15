@@ -141,7 +141,7 @@ class LoginView extends React.Component {
       .then((res) => {
         message.success(res.message);
         // getInfo({ id: res.data.id });
-        setStorge(res.data.id)
+        setStorge(res.data.id);
         history.push("/home");
       })
       .catch((error) => {

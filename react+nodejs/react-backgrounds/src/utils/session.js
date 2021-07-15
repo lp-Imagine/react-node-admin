@@ -4,7 +4,7 @@
  * @Author: peng
  * @Date: 2021-06-25 14:27:31
  * @LastEditors: peng
- * @LastEditTime: 2021-07-14 14:59:52
+ * @LastEditTime: 2021-07-15 16:54:34
  */
 
 const LOGIN_COOKIE_NAME = "jwt-token";
@@ -20,14 +20,13 @@ export function removeToken() {
 }
 
 export function setStorge(id) {
-  window.localStorage.setItem("id",id);
+  window.localStorage.setItem("id", id);
 }
 export function getStorge() {
   return window.localStorage.getItem("id");
 }
 
 function _setCookie(name, value, expire) {
-  console.log(value, "token");
   let date = new Date();
   date.setDate(date.getDate() + expire);
   document.cookie =

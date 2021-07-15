@@ -15,6 +15,7 @@ import {
   EditOutlined,
   DeleteOutlined,
   SearchOutlined,
+  SmallDashOutlined,
 } from "@ant-design/icons";
 import { tableList, deleteItem, editItem } from "@/api/table";
 import EditForm from "./forms/editForm";
@@ -114,6 +115,9 @@ class TableComponent extends Component {
         this.fetchData();
       }
     );
+  };
+  handleDetail = (row) => {
+    this.props.history.push(`/tableDetail/${row.title}`);
   };
   handleDelete = (row) => {
     deleteItem({ id: row.id }).then((res) => {
@@ -266,6 +270,15 @@ class TableComponent extends Component {
             align="center"
             render={(text, row) => (
               <span>
+                <Button
+                  style={{background:"#ddd"}}
+                  type="text"
+                  shape="circle"
+                  icon={<SmallDashOutlined />}
+                  title="详情"
+                  onClick={this.handleDetail.bind(null, row)}
+                />
+                <Divider type="vertical" />
                 <Button
                   type="primary"
                   shape="circle"

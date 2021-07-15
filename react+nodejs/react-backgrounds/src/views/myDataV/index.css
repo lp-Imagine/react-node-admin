@@ -8,33 +8,9 @@
   margin: 0;
   padding: 0;
 }
-html,
-body,
-#root {
-  width: 100%;
-  height: 100%;
-  min-height: 635px;
-  font-family: "microsoft yahei", arial, sans-serif;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 100% 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
+
 body {
   background-image: url("@/assets/images/bg.png");
-}
-table {
-  height: 100%;
-  overflow-y: auto;
-  display: block;
-}
-tr {
-  padding: 8px;
-}
-td {
-  color: #c9ccd4;
-  padding: 8px;
 }
 .content_title {
   width: 200px;
@@ -47,16 +23,8 @@ td {
   margin-left: -100px;
 }
 .databg {
-  background: url("@/assets/images/databg.png") 0 0 no-repeat;
-  background-size: 22px 30px;
-  height: 30px;
-  width: 22px;
-  color: #fff;
-  font-size: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 10px;
+  height: 50px;
+  font-weight: 700;
 }
 @keyframes bganomation {
   0% {
@@ -121,27 +89,33 @@ td {
   opacity: 0.4;
 }
 .left_bg {
-  width: 62%;
-  height: 100%;
+  width: 25%;
+  height: 60px;
   position: absolute;
+  top: 0;
   right: 0;
-  background-position: right;
-  background: url("@/assets/images/left_header.png") 0 10px no-repeat;
 }
 .right_bg {
-  width: 53%;
-  height: 100%;
+  width: 25%;
+  height: 60px;
   position: absolute;
   top: 0;
   left: 0;
-  background: url("@/assets/images/right_header.png") 0 10px no-repeat;
+
+}
+.center_bg {
+  width: 40%;
+  height: 60px;
+  position: absolute;
+  top: 0;
+  left: 30%;
+  margin-top: 25px;
 }
 .header_main {
   margin: 0 auto;
   width: 100%;
   height: 65px;
   max-width: 1920px;
-  /* background:url("./assets/images/header.png") center no-repeat; */
   position: relative;
 }
 .header_main h3 {
@@ -193,7 +167,7 @@ td {
 }
 
 .xpanel-wrapper-6 {
-  height: 30%;
+  height: 33.33333%;
 }
 .xpanel {
   padding: 15px;

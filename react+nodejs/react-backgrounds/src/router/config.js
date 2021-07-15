@@ -4,7 +4,7 @@
  * @Author: peng
  * @Date: 2021-06-24 17:32:48
  * @LastEditors: peng
- * @LastEditTime: 2021-07-14 16:47:25
+ * @LastEditTime: 2021-07-15 17:07:52
  */
 import {
   HomeTwoTone,
@@ -23,7 +23,6 @@ import {
   SearchOutlined,
   FileTextOutlined,
   SelectOutlined,
-  AreaChartOutlined,
   PieChartTwoTone,
 } from "@ant-design/icons";
 
