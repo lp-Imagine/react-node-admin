@@ -119,6 +119,27 @@
       "url": "https://github.com/lp-Imagine/react-node-admin",
       "githubUrl": "https://github.com/lp-Imagine/react-node-admin",
       "id": 1
+    },
+    {
+      "title": "vue3-demoGame",
+      "description": "学习vue3的一个小demo",
+      "url": "https://github.com/lp-Imagine/vue3-demoGame",
+      "githubUrl": "https://github.com/lp-Imagine/vue3-demoGame",
+      "id": 2
+    },
+    {
+      "title": "electron-musicplayer",
+      "description": "local-music-plaer 本地音乐播放器。",
+      "url": "https://github.com/lp-Imagine/electron-musicplayer",
+      "githubUrl": "https://github.com/lp-Imagine/electron-musicplayer",
+      "id": 3
+    },
+    {
+      "title": "chrome_tab_shows",
+      "description": "管理浏览器tab选项卡的一个Chrome插件。",
+      "url": "https://github.com/lp-Imagine/chrome_tab_shows",
+      "githubUrl": "https://github.com/lp-Imagine/chrome_tab_shows",
+      "id": 4
     }
   ]
 }
