@@ -96,3 +96,10 @@ div:focus {
 .app-container {
   padding: 20px;
 }
+
+.ant-tooltip-content .ant-tooltip-inner{
+  background-color: #fff;
+  a .anticon{
+    margin-right: 8px;
+  }
+}
