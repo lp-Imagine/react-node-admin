@@ -6,14 +6,38 @@ import { Form } from "antd";
  * @param {*} func
  * @param {*} wait
  */
-export function debounce(func, wait = 500) {
-  let timeout; // 定时器变量
-  return function (event) {
-    clearTimeout(timeout); // 每次触发时先清除上一次的定时器,然后重新计时
-    event.persist && event.persist(); //保留对事件的引用
-    timeout = setTimeout(() => {
-      func(event);
-    }, wait); // 指定 xx ms 后触发真正想进行的操作 handler
+export function debounce(func, wait, immediate) {
+  let timeout, args, context, timestamp, result;
+
+  const later = function () {
+    // 据上一次触发时间间隔
+    const last = +new Date() - timestamp;
+
+    // 上次被包装函数被调用时间间隔 last 小于设定时间间隔 wait
+    if (last < wait && last > 0) {
+      timeout = setTimeout(later, wait - last);
+    } else {
+      timeout = null;
+      // 如果设定为immediate===true，因为开始边界已经调用过了此处无需调用
+      if (!immediate) {
+        result = func.apply(context, args);
+        if (!timeout) context = args = null;
+      }
+    }
+  };
+
+  return function (...args) {
+    context = this;
+    timestamp = +new Date();
+    const callNow = immediate && !timeout;
+    // 如果延时不存在，重新设定延时
+    if (!timeout) timeout = setTimeout(later, wait);
+    if (callNow) {
+      result = func.apply(context, args);
+      context = args = null;
+    }
+
+    return result;
   };
 }
 
@@ -138,4 +162,58 @@ export function getMenuItemInMenuListByProperty(menuList, key, value) {
     }
   }
   return res;
+}
+/**
+ * 数字添加分隔符，每三位数后面添加
+ * @param {*} num
+ * @return {*}
+ */
+export function numFormat(num) {
+  if (num == null) {
+    return;
+  }
+  if (!isNaN(num)) {
+    num = num.toString();
+  }
+  if (num.indexOf(".") != -1) {
+    var decimals = num.split(".")[1];
+    return (
+      (parseInt(Number(num)) + "").replace(
+        /\d{1,3}(?=(\d{3})+(\.\d*)?$)/g,
+        "$&,"
+      ) +
+      "." +
+      decimals.substring(0, 2)
+    );
+  } else {
+    return (parseInt(Number(num)).toFixed(0) + "").replace(
+      /\d{1,3}(?=(\d{3})+(\.\d*)?$)/g,
+      "$&,"
+    );
+  }
+}
+
+/**
+ * @description 将时间戳转换为年-月-日-时-分-秒格式
+ * @param {String} timestamp
+ * @returns {String} 年-月-日-时-分-秒
+ */
+
+export function timestampToTime(timestamp) {
+  var date = new Date(timestamp);
+  var Y = date.getFullYear() + "-";
+  var M =
+    (date.getMonth() + 1 < 10
+      ? "0" + (date.getMonth() + 1)
+      : date.getMonth() + 1) + "-";
+  var D = (date.getDate() < 10 ? "0" + date.getDate() : date.getDate()) + " ";
+  var h =
+    (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) + ":";
+  var m =
+    (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) +
+    ":";
+  var s = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+
+  let strDate = Y + M + D + h + m + s;
+  return strDate;
 }

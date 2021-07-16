@@ -16,6 +16,7 @@ import {
   Decoration5,
   DigitalFlop,
 } from "@jiaminghi/data-view-react";
+import CountUp from "react-countup";
 import "./index.css";
 
 class MyDataV extends Component {
@@ -745,6 +746,7 @@ class MyDataV extends Component {
 
   render() {
     const { topdata, tabledata, isLoading, ringData, flopData } = this.state;
+    const num = flopData.number[0];
     setTimeout(() => {
       this.setState({
         isLoading: false,
@@ -817,7 +819,7 @@ class MyDataV extends Component {
                       style={{
                         width: "100%",
                         position: "absolute",
-                        top: 10,
+                        top: 0,
                         display: "flex",
                         left: "50%",
                         justifyContent: "center",
@@ -826,10 +828,18 @@ class MyDataV extends Component {
                         transform: "translateX(-50%)",
                       }}
                     >
-                      <span style={{ fontSize: 20, fontWeight: 700 }}>
+                      {/* <span style={{ fontSize: 20, fontWeight: 700 }}>
                         数量统计：
-                      </span>
-                      <DigitalFlop config={flopData} className="databg" />
+                      </span> */}
+
+                      {/* <DigitalFlop config={flopData} className="databg" /> */}
+                      <CountUp
+                        end={num}
+                        start={0}
+                        separator=","
+                        prefix="数量统计： "
+                        className="databg"
+                      />
                     </div>
                     <div
                       style={{

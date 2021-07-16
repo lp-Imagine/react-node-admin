@@ -4,7 +4,7 @@
  * @Author: peng
  * @Date: 2021-06-24 17:32:48
  * @LastEditors: peng
- * @LastEditTime: 2021-07-15 17:07:52
+ * @LastEditTime: 2021-07-16 17:43:16
  */
 import {
   HomeTwoTone,
@@ -24,6 +24,12 @@ import {
   FileTextOutlined,
   SelectOutlined,
   PieChartTwoTone,
+  FileZipOutlined,
+  SoundTwoTone,
+  BugOutlined,
+  FireTwoTone,
+  FontColorsOutlined,
+  MediumOutlined,
 } from "@ant-design/icons";
 
 const menuList = [
@@ -55,19 +61,21 @@ const menuList = [
     title: "Excel",
     path: "/excel",
     icon: <FileExcelTwoTone />,
-    roles: ["admin", "editor"],
     children: [
       {
         title: "导出Excel",
         path: "/excel/export",
-        roles: ["admin", "editor"],
         icon: <FileExcelOutlined />,
       },
       {
         title: "上传Excel",
         path: "/excel/upload",
-        roles: ["admin", "editor"],
         icon: <UploadOutlined />,
+      },
+      {
+        title: "Zip",
+        path: "/excel/zip",
+        icon: <FileZipOutlined />,
       },
     ],
   },
@@ -124,6 +132,35 @@ const menuList = [
     title: "可视化",
     path: "/dataV",
     icon: <PieChartTwoTone />,
+  },
+  {
+    title: "动态",
+    path: "/active",
+    icon: <FireTwoTone />,
+    children: [
+      {
+        title: "文字",
+        path: "/active/font",
+        icon: <FontColorsOutlined />,
+      },
+      {
+        title: "动画",
+        path: "/active/animation",
+        icon: <MediumOutlined />,
+      },
+    ],
+  },
+  {
+    title: "日志",
+    path: "/log",
+    icon: <SoundTwoTone />,
+    children: [
+      {
+        title: "BUG收集",
+        path: "/log/bug",
+        icon: <BugOutlined />,
+      },
+    ],
   },
 ];
 

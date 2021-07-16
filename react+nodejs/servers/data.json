@@ -1,15 +1,15 @@
 {
   "user": [
     {
-      "username": "admin01",
+      "username": "admin",
       "password": "123456",
       "ip": "106.7.174.129",
       "adress": "江西省",
-      "hashPassword": "U2FsdGVkX191TLkLCDpsw4rUOk32FMuNEas9PsPGEZY=",
-      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluMDEiLCJpYXQiOjE2MjYxNTQ3NzF9.DZ5Ug6xI98ZDFfPFbcDQM2cicz6AARe7Z6kY54jdASk",
+      "hashPassword": "U2FsdGVkX1+PsD6r/jF1+4ljLXISlx9EVxnkkjUfZGg=",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiaWF0IjoxNjI2NDIzNTEwfQ.0s3MAdwQcCRpq6kOVcjgZTekuU556608J7818Iz9HxQ",
       "role": "admin",
       "createDate": "2021-07-09 15:16:25",
-      "loginDate": "2021-07-15 16:40:28",
+      "loginDate": "2021-07-16 16:17:44",
       "id": 1,
       "title": "管理员角色"
     },
@@ -38,19 +38,6 @@
       "loginDate": "2021-07-09 15:17:24",
       "id": 3,
       "title": "游客"
-    },
-    {
-      "username": "admin",
-      "password": "123456",
-      "ip": "106.7.171.219",
-      "adress": "江西省",
-      "hashPassword": "U2FsdGVkX1/3UOb24Cd2eDV1PsXG+owU9BQwUXTAQ+Y=",
-      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwiaWF0IjoxNjI1OTA5ODM1fQ.j4Ry6NFlRPQZH2826wEuwO2Z47mxxwrA_ZB-Vbh4Hwo",
-      "role": "admin",
-      "createDate": "2021-07-09 15:35:09",
-      "loginDate": "2021-07-09 17:50:33",
-      "id": 4,
-      "title": "管理员"
     },
     {
       "username": "旧村",

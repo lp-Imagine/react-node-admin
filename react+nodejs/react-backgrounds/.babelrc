@@ -1,0 +1,11 @@
+{
+  "plugins": [
+    [
+      "import",
+      {
+        "libraryName": "antd",
+        "style": true // 可以使用 Less 组件
+      }
+    ]
+  ]
+}

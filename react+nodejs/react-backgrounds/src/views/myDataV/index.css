@@ -23,8 +23,9 @@ body {
   margin-left: -100px;
 }
 .databg {
-  height: 50px;
-  font-weight: 700;
+  font-size: 40px;
+  color: #01c4f7;
+  font-weight: 600;
 }
 @keyframes bganomation {
   0% {

@@ -29,6 +29,8 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 
 const postcssNormalize = require('postcss-normalize');
 
+const AntdScssThemePlugin = require('antd-scss-theme-plugin')
+
 const appPackageJson = require(paths.appPackageJson);
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
@@ -374,6 +376,15 @@ module.exports = function (webpackEnv) {
             // TODO: Merge this config once `image/avif` is in the mime-db
             // https://github.com/jshttp/mime-db
             {
+              test: /.(less)$/,
+              loaders: ['style-loader', 'css-loader', AntdScssThemePlugin.themify('less-loader')]
+            },
+            {
+              test: /.(scss)$/,
+              loaders: ['style-loader', 'css-loader', AntdScssThemePlugin.themify('sass-loader')]
+            },
+
+            {
               test: [/\.avif$/],
               loader: require.resolve('url-loader'),
               options: {
@@ -562,6 +573,8 @@ module.exports = function (webpackEnv) {
     },
     plugins: [
       // Generates an `index.html` file with the <script> injected.
+      new AntdScssThemePlugin('./theme.scss'),
+      
       new HtmlWebpackPlugin(
         Object.assign(
           {},

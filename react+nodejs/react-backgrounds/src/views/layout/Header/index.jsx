@@ -42,6 +42,7 @@ const LayoutHeader = (props) => {
         break;
     }
   };
+
   const menu = (
     <Menu onClick={onClick}>
       <Menu.Item key="/home">

@@ -197,7 +197,7 @@ class UserList extends React.Component {
       total,
       listQuery,
     } = this.state;
-    const cardContent = `系统中的用户管理。`;
+    const cardContent = `系统中的用户管理(仅管理员可见)。`;
     return (
       <div className="app-container">
         <TypingCard title="用户管理" source={cardContent} />

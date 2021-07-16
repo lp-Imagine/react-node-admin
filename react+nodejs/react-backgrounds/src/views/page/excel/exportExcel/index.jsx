@@ -3,7 +3,6 @@ import {
   Table,
   Tag,
   Form,
-  Icon,
   Button,
   Input,
   Radio,
@@ -11,7 +10,7 @@ import {
   message,
   Collapse,
 } from "antd";
-
+import { FileExcelOutlined} from '@ant-design/icons'
 import { excelList } from "@/api/excel";
 const { Panel } = Collapse;
 const columns = [
@@ -166,7 +165,7 @@ class Excel extends Component {
               <Form.Item>
                 <Button
                   type="primary"
-                  icon="file-excel"
+                  icon={<FileExcelOutlined />}
                   onClick={this.handleDownload.bind(null, "all")}
                 >
                   全部导出
@@ -175,7 +174,7 @@ class Excel extends Component {
               <Form.Item>
                 <Button
                   type="primary"
-                  icon="file-excel"
+                  icon={<FileExcelOutlined />}
                   onClick={this.handleDownload.bind(null, "selected")}
                 >
                   导出已选择项

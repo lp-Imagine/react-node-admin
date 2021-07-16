@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router";
 import { Form, Input, Button, message } from "antd";
 import { connect } from "react-redux";
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { UserOutlined, LockOutlined, BarcodeOutlined } from "@ant-design/icons";
 import { randomNum, encrypt } from "@/utils/index";
 import "@/styles/login.scss";
 import { reqLogin } from "@/store/actions";
@@ -216,6 +216,7 @@ class LoginView extends React.Component {
               <div className="flex_div">
                 <div>
                   <Input
+                    prefix={<BarcodeOutlined className="site-form-item-icon" />}
                     maxLength={4}
                     placeholder="验证码"
                     className="my_input"

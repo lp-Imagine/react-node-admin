@@ -4,7 +4,7 @@
  * @Author: peng
  * @Date: 2021-06-15 10:50:22
  * @LastEditors: peng
- * @LastEditTime: 2021-07-13 11:43:43
+ * @LastEditTime: 2021-07-16 09:09:18
  */
 const express = require("express");
 const jsonServer = require("json-server");
@@ -42,7 +42,7 @@ Date.prototype.format = function (format) {
 };
 
 const serve = express();
-const hostname = "http://192.168.8.225:9000";
+const hostname = "http://localhost:9000";
 const portname = "9000";
 Axios.defaults.baseURL = hostname;
 

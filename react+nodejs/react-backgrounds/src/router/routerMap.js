@@ -4,13 +4,13 @@
  * @Author: peng
  * @Date: 2021-07-02 15:42:17
  * @LastEditors: peng
- * @LastEditTime: 2021-07-15 16:50:40
+ * @LastEditTime: 2021-07-16 17:45:49
  */
 import Loadable from "react-loadable";
 import Loading from "@/components/Loading";
 
 const Home = Loadable({
-  loader: () => import("@/views/page/home"),
+  loader: () => import("@/views/page/home/index"),
   loading: Loading,
 });
 const userList = Loadable({
@@ -61,6 +61,22 @@ const DataVDemo = Loadable({
   loader: () => import("@/views/page/dataV"),
   loading: Loading,
 });
+const Zip = Loadable({
+  loader: () => import("@/views/page/zip"),
+  loading: Loading,
+});
+const Bug = Loadable({
+  loader: () => import("@/views/page/bug"),
+  loading: Loading,
+});
+const FontActive = Loadable({
+  loader: () => import("@/views/page/SpringText"),
+  loading: Loading,
+});
+const AnimationActive = Loadable({
+  loader: () => import("@/views/page/AnimationDemo"),
+  loading: Loading,
+});
 
 export default [
   { path: "/home", component: Home },
@@ -68,6 +84,7 @@ export default [
   { path: "/table", component: Tables },
   { path: "/excel/export", component: ExportExcel },
   { path: "/excel/upload", component: UploadExcel },
+  { path: "/excel/zip", component: Zip },
   { path: "/editor/richTexteditor", component: RichTexteditor },
   { path: "/editor/markdown", component: MarkDown },
   { path: "/demo", component: Demo },
@@ -76,4 +93,7 @@ export default [
   { path: "/components/Typography", component: ComponentText },
   { path: "/components/select", component: ComponentSelect },
   { path: "/dataV", component: DataVDemo },
+  { path: "/log/bug", component: Bug },
+  { path: "/active/font", component: FontActive },
+  { path: "/active/animation", component: AnimationActive },
 ];

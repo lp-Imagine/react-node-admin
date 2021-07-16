@@ -4,7 +4,7 @@
  * @Author: peng
  * @Date: 2021-07-01 17:44:42
  * @LastEditors: peng
- * @LastEditTime: 2021-07-06 10:52:58
+ * @LastEditTime: 2021-07-16 11:51:54
  */
 // user
 export const USER_SET_TOKEN = "USER_SET_TOKEN"; //   用户token
@@ -24,3 +24,6 @@ export const APP_TOGGLE_SETTINGPANEL = "APP_TOGGLE_SETTINGPANEL";
 // settings
 export const SETTINGS_CHANGE_SETTINGS = "SETTINGS_CHANGE_SETTINGS";
 export const SET_INFO_VISIBLE = "SET_INFO_VISIBLE";
+
+// monitor
+export const BUG_ADD_BUG = "BUG_ADD_BUG";
