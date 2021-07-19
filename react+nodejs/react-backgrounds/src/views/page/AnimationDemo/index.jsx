@@ -73,10 +73,10 @@ const animations = [
     groups: ["Flippers"],
     list: ["flip", "flipInX", "flipInY", "flipOutX", "flipOutY"],
   },
-  {
-    groups: ["Lightspeed"],
-    list: ["lightSpeedIn", "lightSpeedOut"],
-  },
+  // {
+  //   groups: ["Lightspeed"],
+  //   list: ["lightSpeedIn", "lightSpeedOut"],
+  // },
   {
     groups: ["Rotating Entrances", "Entrances"],
     list: [

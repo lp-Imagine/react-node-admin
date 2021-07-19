@@ -1,10 +1,10 @@
 /*
- * @Descripttion: 
- * @version: 
+ * @Descripttion:
+ * @version:
  * @Author: peng
  * @Date: 2021-07-06 17:32:00
  * @LastEditors: peng
- * @LastEditTime: 2021-07-07 10:50:37
+ * @LastEditTime: 2021-07-19 11:09:29
  */
 import Mock from "mockjs";
 import loginAPI from "./login";
@@ -14,15 +14,15 @@ import tableAPI from "./table";
 import monitor from "./monitor";
 
 // 登录与用户相关
-// Mock.mock(/\/login/, "post", loginAPI.login);
-// Mock.mock(/\/logout/, "post", loginAPI.logout);
-// Mock.mock(/\/userInfo/, "post", loginAPI.userInfo);
-Mock.mock(/\/user\/list/, "get", loginAPI.getUsers);
-Mock.mock(/\/user\/delete/, "post", loginAPI.deleteUser);
-Mock.mock(/\/user\/edit/, "post", loginAPI.editUser);
-Mock.mock(/\/user\/validatUserID/, "post", loginAPI.ValidatUserID);
-Mock.mock(/\/user\/add/, "post", loginAPI.addUser);
+// Mock.mock(/\/user\/login/, "post", loginAPI.login);
+// Mock.mock(/\/user\/logout/, "post", loginAPI.logout);
+// Mock.mock(/\/userInfo/, "get", loginAPI.getUserInfo);
+// Mock.mock(/\/user\/userList/, "get", loginAPI.getUsers);
+// Mock.mock(/\/user\/deleteUser/, "post", loginAPI.deleteUser);
+// Mock.mock(/\/user\/editInfo/, "put", loginAPI.editUserInfo);
 
+// Mock.mock(/\/user\/validatUserID/, "post", loginAPI.ValidatUserID);
+// Mock.mock(/\/user\/add/, "post", loginAPI.addUser);
 
 // dashboard
 Mock.mock(/\/transaction\/list/, "get", remoteSearchAPI.transactionList);
